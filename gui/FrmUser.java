@@ -273,11 +273,13 @@ public class FrmUser extends javax.swing.JFrame {
         String userName = txtUserName.getText();
         String passWord = txtPass.getText();
 
-        if (!DanhSach_DAL.kiemTraTaiKhoan(userName, passWord)) {
-            JOptionPane.showMessageDialog(null, "Thông tin tài khoản không hợp lệ");
-        } else {
+        if (DanhSach_DAL.kiemTraTaiKhoan(userName, passWord)) {
             new FrmAdmin(userName).setVisible(true);
             this.hide();
+        } else {
+            JOptionPane.showMessageDialog(null, "Thông tin tài khoản không hợp lệ");
+            txtUserName.setText("");
+            txtPass.setText("");
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
