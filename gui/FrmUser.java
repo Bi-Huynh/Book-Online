@@ -347,7 +347,7 @@ public class FrmUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void cmbSapXepItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSapXepItemStateChanged
-        ArrayList<Sach_DTO> temp = DanhSach_DAL.DS_SACH_DTOs;
+        ArrayList<Sach_DTO> temp = (ArrayList<Sach_DTO>) DanhSach_DAL.DS_SACH_DTOs.clone();
         Collections.sort(temp);
 
         switch (cmbSapXep.getSelectedItem().toString()) {
@@ -361,7 +361,7 @@ public class FrmUser extends javax.swing.JFrame {
                 hienThi(temp);
                 break;
             default:
-                throw new AssertionError();
+                hienThi(DanhSach_DAL.DS_SACH_DTOs);
         }
     }//GEN-LAST:event_cmbSapXepItemStateChanged
 
@@ -369,10 +369,14 @@ public class FrmUser extends javax.swing.JFrame {
         ArrayList<Sach_DTO> temp = new ArrayList<>();
         String theLoai = cmbLoc.getSelectedItem().toString();
 
-        for (Sach_DTO sach : DanhSach_DAL.DS_SACH_DTOs) {
-            if (sach.getTheLoai().equals(theLoai)) {
-                temp.add(sach);
+        if (!theLoai.equals("Lọc sách theo")) {
+            for (Sach_DTO sach : DanhSach_DAL.DS_SACH_DTOs) {
+                if (sach.getTheLoai().equals(theLoai)) {
+                    temp.add(sach);
+                }
             }
+        } else {
+            temp = DanhSach_DAL.DS_SACH_DTOs;
         }
 
         hienThi(temp);
