@@ -110,6 +110,16 @@ public class Sach_DTO implements Comparable<Sach_DTO>{
     }
 
     @Override
+    public String toString() {
+        return "Mã Sách : " + maSach + ", Tên Sách : " + tenSach + ", Thể Loại : " 
+                + theLoai + ", Tác Giả : " + tacGia + ", Nhà Xuất Bản : " 
+                + nhaXuatBan + ", Ngày Xuất Bản : " + ngayXuatBan + ", Số Lượng : " 
+                + soLuong + ", Giá Thành : " + giaThanh;
+    }
+    
+    
+
+    @Override
     public int compareTo(Sach_DTO sach) {
         int quantity = ((Sach_DTO) sach).getGiaThanh();     // ????? không hiểu tại sao lại ép hiểu kỳ dị
         

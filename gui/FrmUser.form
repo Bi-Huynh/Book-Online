@@ -2,10 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-      <Color id="Default Cursor"/>
-    </Property>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -19,8 +16,8 @@
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
-    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
   </AuxValues>
 
   <Layout>
@@ -29,7 +26,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cmbLoc" min="-2" pref="126" max="-2" attributes="0"/>
@@ -40,7 +37,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtTimKiem" min="-2" pref="171" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cmbTimKiem" min="-2" pref="131" max="-2" attributes="0"/>
+                      <Component id="cmbTimKiem" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnTimKiem" min="-2" pref="103" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -50,34 +47,32 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtPass" min="-2" pref="145" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane1" min="-2" pref="947" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnDatSach" alignment="1" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel3" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtHoTen" min="-2" pref="212" max="-2" attributes="0"/>
-                                              <Component id="txtSDT" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
-                                              <Component id="txtEmail" min="-2" pref="212" max="-2" attributes="0"/>
-                                              <Component id="txtMaSach" min="-2" pref="212" max="-2" attributes="0"/>
-                                              <Component id="txtTenSach" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
-                                              <Component id="txtSoLuong" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
-                                          </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel3" alignment="0" min="-2" pref="306" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtTenSach" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtHoTen" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtEmail" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtMaSach" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtSoLuong" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtSDT" alignment="1" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -107,12 +102,12 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtHoTen" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtHoTen" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -142,7 +137,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnDatSach" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -150,15 +145,16 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="L&#x1ecd;c : "/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JComboBox" name="cmbLoc">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="5">
+            <StringItem index="0" value="L&#x1ecd;c s&#xe1;ch theo"/>
+            <StringItem index="1" value="Van Hoc"/>
+            <StringItem index="2" value="IT"/>
+            <StringItem index="3" value="Khoa Hoc"/>
+            <StringItem index="4" value="Toan Hoc"/>
+          </StringArray>
         </Property>
       </Properties>
       <Events>
@@ -168,15 +164,29 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
+    <Component class="javax.swing.JTextField" name="txtUserName">
+    </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#x1eaf;p x&#x1ebf;p :"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JButton" name="btnDangNhap">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng nh&#x1ead;p"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDangNhapActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JComboBox" name="cmbSapXep">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="3">
+            <StringItem index="0" value="S&#x1eaf;p x&#x1ebf;p theo"/>
+            <StringItem index="1" value="Gi&#xe1; t&#x103;ng"/>
+            <StringItem index="2" value="Gi&#xe1; gi&#x1ea3;m"/>
+          </StringArray>
         </Property>
       </Properties>
       <Events>
@@ -191,10 +201,35 @@
         <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JTextField" name="txtHoTen">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtSDT">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtEmail">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMaSach">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtTenSach">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtSoLuong">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnDatSach">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDatSachActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JComboBox" name="cmbTimKiem">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="4">
+            <StringItem index="0" value="Ch&#x1ecd;n m&#x1ee5;c t&#xec;m ki&#x1ebf;m"/>
+            <StringItem index="1" value="M&#xe3;"/>
+            <StringItem index="2" value="T&#xe1;c gi&#x1ea3;"/>
+            <StringItem index="3" value="T&#xea;n s&#xe1;ch"/>
+          </StringArray>
         </Property>
       </Properties>
       <AuxValues>
@@ -206,7 +241,7 @@
         <Property name="text" type="java.lang.String" value="T&#xec;m Ki&#x1ebf;m"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnTimKiemMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimKiemActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -293,8 +328,6 @@
         <Property name="text" type="java.lang.String" value="&#x110;&#x1eb6;T S&#xc1;CH"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtHoTen">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="H&#x1ecd; t&#xea;n :"/>
@@ -325,36 +358,12 @@
         <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng : "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtSDT">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtEmail">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtMaSach">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtTenSach">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtSoLuong">
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="L&#x1ecd;c : "/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPass">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtUserName">
-    </Component>
-    <Component class="javax.swing.JButton" name="btnDangNhap">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng nh&#x1ead;p"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnDangNhapMouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDangNhapActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnDatSach">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnDatSachMouseClicked"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

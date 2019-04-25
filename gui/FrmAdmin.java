@@ -14,9 +14,9 @@ public class FrmAdmin extends javax.swing.JFrame {
     /**
      * Creates new form FrmAdmin
      */
-    public FrmAdmin() {
+    public FrmAdmin(String nameAdmin) {
         initComponents();
-        
+        labTenAdmin.setText(nameAdmin);
         
     }
 
@@ -166,6 +166,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         jLabel10.setText("Lọc : ");
 
+        cmbLoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lọc sách theo", "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc" }));
         cmbLoc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbLocItemStateChanged(evt);
@@ -174,6 +175,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         jLabel11.setText("Sắp xếp :");
 
+        cmbSapXep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp theo", "Giá tăng", "Giá giảm" }));
         cmbSapXep.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbSapXepItemStateChanged(evt);

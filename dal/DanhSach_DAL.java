@@ -16,15 +16,24 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class DanhSach_DAL {
-    final static ArrayList<Sach_DTO> DS_SACH_DTOs = Sach_DAL.getDatabase_Sach();
-    final static ArrayList<Sach_DTO> DS_SACHDAXOA_DTOs = Sach_DAL.getDatabase_SachDaXoa();
-    final static ArrayList<DatSach_DTO> DS_DATSACH_DTOs = Sach_DAL.getDatabase_DatSach();
-    final static ArrayList<TaiKhoan_DTO> DS_TAIKHOAN_DTOs = Sach_DAL.getDatabase_TaiKhoan();
+    public final static ArrayList<Sach_DTO> DS_SACH_DTOs = Sach_DAL.getDatabase_Sach();
+    public final static ArrayList<Sach_DTO> DS_SACHDAXOA_DTOs = Sach_DAL.getDatabase_SachDaXoa();
+    public final static ArrayList<DatSach_DTO> DS_DATSACH_DTOs = Sach_DAL.getDatabase_DatSach();
+    public final static ArrayList<TaiKhoan_DTO> DS_TAIKHOAN_DTOs = Sach_DAL.getDatabase_TaiKhoan();
 
     // không cho khởi tạo
     private DanhSach_DAL() {
     }
     
+    /*
+        hàm kiểm tra thông tin tài khoàn đưa vào có hợp lệ hay không
+        Mô tả:
+        
+    */
+    public static Boolean kiemTraTaiKhoan (String userName, String passWord) {
+        
+        return true;
+    }
     
     /*
         kiểm tra dữ liệu của 1 quyển sách có hợp lệ hay không
@@ -185,5 +194,80 @@ public class DanhSach_DAL {
     public static Boolean xoaDatSach(DatSach_DTO datSach) {
         
         return true;                    // đúng thì trả về true
+    }
+    
+    /*
+        Đức viết: hàm bổ trợ cho việc tìm kiếm
+    
+        hàm trả về 1 quyển sách có dựa vào mã sách
+        Mô tả: hàm sẽ chuẩn hóa lại mã sách cho đúng chuẩn rồi đem đi so sách với
+        các quyển sách nếu trùng mã thì trả quyển sách đó về, nếu không có mã nào
+        trùng thì sẽ trả về null
+    */
+    public static Sach_DTO getSach_MaSach (String maSach) {
+        Sach_DTO sach = null;
+        String maString = chuanMaSach(maSach);
+        
+        if (!kiemTraMaSach(maSach)) {
+            return sach;            // tại đây sách hiện tại là null
+        }
+        
+        Boolean flag = false;
+        
+        for (Sach_DTO s : DS_SACH_DTOs) {
+            if (s.getMaSach().equals(maString)) {
+                sach = s;
+                flag = true;
+                break;
+            }
+        }
+        
+        if (flag == false) {
+            return sach;            // tại đây sách hiện tại là null
+        }
+        
+        return sach;
+    }
+    
+    /*
+        Đức viết: hàm bổ trợ cho việc tìm kiếm
+    
+        hàm trả về 1 quyển sách có dựa vào tên sách
+        Mô tả: hàm sẽ chuẩn hóa lại tên sách cho đúng chuẩn rồi đem đi so sách với
+        các quyển sách nếu trùng tên sách thì trả quyển sách đó về, nếu không có
+        quyển nào thì trả về null
+    */
+    public static Sach_DTO getSach_TenSach (String tenSach) {
+        Sach_DTO sach = null;
+        tenSach = chuanChuoi(tenSach);
+        
+        for (Sach_DTO s : DS_SACH_DTOs) {
+            if (s.getTenSach().equals(tenSach)) {
+                // nếu sách được gán bằng null thì chứng tỏ là không có sách
+                sach = getSach_MaSach(s.getMaSach());
+            }
+        }
+        return sach;
+    }
+    
+    /*
+        Đức viết: hàm bổ trợ cho việc tìm kiếm
+    
+        hàm trả về 1 quyển sách có dựa vào tên sách
+        Mô tả: hàm sẽ chuẩn hóa lại tên sách cho đúng chuẩn rồi đem đi so sách với
+        các quyển sách nếu trùng tên sách thì trả quyển sách đó về, nếu không có
+        quyển nào thì trả về null
+    */
+    public static Sach_DTO getSach_TacGia (String tacGia) {
+        Sach_DTO sach = null;
+        tacGia = chuanChuoi(tacGia);
+        
+        for (Sach_DTO s : DS_SACH_DTOs) {
+            if (s.getTacGia().equals(tacGia)) {
+                // nếu sách được gán bằng null thì chứng tỏ là không có sách
+                sach = getSach_MaSach(s.getMaSach());
+            }
+        }
+        return sach;
     }
 }
