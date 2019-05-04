@@ -10,6 +10,8 @@ import dto.Sach_DTO;
 import dto.TaiKhoan_DTO;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -32,7 +34,16 @@ public class DanhSach_DAL {
     */
     public static Boolean kiemTraTaiKhoan (String userName, String passWord) {
         
-        return false;
+        
+        
+        for(TaiKhoan_DTO tk :DS_TAIKHOAN_DTOs)//duyệt danh sách tài khoản
+        {
+            if(tk.getUserName().equals(userName)&&tk.getPassWord().equals(passWord))//so sánh tài khoản và mật khẩu
+            {
+                return true;//->true tài khoản hợp lệ có thể đăng nhập vào hệ thống
+            }
+        }
+        return false;//->false tài khoản không hợp lệ
     }
     
     /*
@@ -55,7 +66,19 @@ public class DanhSach_DAL {
     */
     private static String chuanChuoi (String chuoi) {
         
-        return "";
+        chuoi=chuoi.trim();//hàm hỗ trợ xóa bỏ đi các khoảng trắng dư thừa
+        while (chuoi.contains("  ")) chuoi = chuoi.replaceAll("  "," ");//cách 1
+        //s.replaceAll(s1,s2) : phương thức thay thế tất cả chuỗi s1 thành s2 trong s.
+        //nhưng chỉ duyệt chuỗi s 1 lần. Vì vậy ta cần kết hợp cả vòng while để có thể thay thế tất cả.
+        //chuoi = chuoi.replaceAll("\\s+", " ");//cách 2
+        String temp[] = chuoi.split(" ");//split tách xâu thành mãng các từ
+        chuoi = ""; // khởi tại chuỗi băng rỗng
+        for (int i = 0; i < temp.length; i++) {
+            chuoi += String.valueOf(temp[i].charAt(0)).toUpperCase() + temp[i].substring(1);
+            if (i < temp.length - 1) // ? ^-^
+                chuoi += " ";
+        }
+        return chuoi;
     }
     
     /*
@@ -63,8 +86,23 @@ public class DanhSach_DAL {
         các khoảng trắng dư thừa ở đầu chuỗi và cuối chuỗi
     */
     private static String chuanMaSach (String maSach) {
-        
-        return "";
+        maSach=maSach.trim();//hàm hỗ trợ xóa bỏ đi các khoảng trắng dư thừa
+        while (maSach.contains("  ")) maSach = maSach.replaceAll("  "," ");//cách 1
+        //s.replaceAll(s1,s2) : phương thức thay thế tất cả chuỗi s1 thành s2 trong s.
+        //nhưng chỉ duyệt chuỗi s 1 lần. Vì vậy ta cần kết hợp cả vòng while để có thể thay thế tất cả.
+        //chuoi = chuoi.replaceAll("\\s+", " ");//cách 2
+        String temp[] = maSach.split(" ");//split tách xâu thành mãng các từ
+        maSach = ""; // khởi tại chuỗi băng rỗng
+        int j=0;
+        for (String temp1 : temp) {
+            if (j<3) {
+                maSach += temp1.toUpperCase(); //in Hoa 3 chữ cái đầu lên
+                j=j+1;
+            } else {
+                maSach += temp1.substring(1); //cộng nối theo những kí tự tiếp theo
+            }
+        }
+        return maSach;//trả về 1 chuỗi ABCxxxxxxx
     }
     
     /*
@@ -72,7 +110,18 @@ public class DanhSach_DAL {
         hợp lệ khi 3 ký tự đầu tiên là JAV và phải in hoa, phải đúng 10 ký tự
     */
     private static Boolean kiemTraMaSach(String maSach) {
-        
+        if(maSach.length()<10||maSach.length()>10)
+        {
+            return false;
+        }
+        else if(maSach.length()==10)//mã sách chính xác bằng 10 ký tự
+        {
+            String temp[] = maSach.split(" ");//cắt chuỗi ra thành mảng
+            if(!temp[0].equals('J')||temp[1].equals('A')||temp[2].equals('V'));//nếu nó khác thì trả về false
+            {
+                return false;
+            }
+        }
         return true;            // đúng thì trả về true
     }
     
@@ -80,18 +129,33 @@ public class DanhSach_DAL {
         kiểm tra mã đã tồn tại: nếu mã tồn tại trong danh sách sách và danh sách đã xóa
     */
     private static boolean kiemTraMaTonTai(String maSach) {
+        for(Sach_DTO sach1 :DS_SACH_DTOs)//duyệt từng cuốn sách trong danh sách sách
+        {
+            for(Sach_DTO sach2:DS_SACHDAXOA_DTOs)//duyệt sách trong danh sách sách đã xóa
+                if(sach1.getMaSach().equals(maSach)||sach2.getMaSach().equals(maSach))//so sánh mã sách trong các danh sách với mã sách truyền vào
+                {
+                    return true;//sách đã tồn tại trong danh sách
+                }
+        }
+        return false;            // chưa có mã sách trong danh sách có thể thêm 
         
-        return false;           // chưa tồn tại maSach thì trả về false
     }
-    
+    //ha
     /*
-        kiểm tra số lượng hoặc giá thành: hàm sẽ kiểm tra xem số lượng hoặc giá 
-        thành có hợp lệ hay không
+        kiểm tra số lượng hoặc giá thành: hàm sẽ kiểm tra xem ố lượng hoặc giá 
+        thành có hợp lệ hay khôngs
         hợp lệ khi: không âm
     */
     private static Boolean kiemTraInt(int so) {
-        
-        return true;            // đúng thì trả về true
+        Sach_DTO sach=new Sach_DTO();
+        for(int i=0;i<DS_SACH_DTOs.size();i++)
+        {
+            if(sach.getGiaThanh()<=0||sach.getSoLuong()<=0)//kiểm tra xem số lượng hay giá sản phẩm có bị âm (<0) hay không
+            {
+                return true;//tìm ra dc sách có số lượng hoặc giá thành <0
+            }
+        }
+        return false;           //không có sách nào vi pham điều kiện số lượng hoặc giá thành âm
     }
     
     /*
@@ -100,10 +164,15 @@ public class DanhSach_DAL {
             không có ngày âm, tháng 2 phải 28 ngày v.v.....
             ngày nhập vào không được hơn ngày hiện tại
     */
-    private static Boolean kiemTraDate(Date ngay) {
-        
-        return true;                // đúng thì trả về true
+    private static boolean kiemTraDate(Date ngay) {
+        java.util.Date today=new java.util.Date();  //lay ngày hiện tại
+        if(ngay.after(today))//so sánh ngày nhập vào và ngày hiện tại <date1>.after(date2) cái hàm này so sánh ngày 1 trước(bé hơn) ngày 2
+        {
+                return true;//nếu nó bé hơn là n hợp lệ nên n trả về true
+        }
+        return false;//còn nó lớn hơn ngày hiện tại là trả về false
     }
+    
     
     /*
         kiểm tra dữ liệu của 1 quyển sách có hợp lệ hay không
@@ -112,8 +181,20 @@ public class DanhSach_DAL {
     
     */
     private static Boolean kiemTraTTSach(Sach_DTO sach) {
-        
-        return true;                // đúng thì trả về true
+        String ma=sach.getMaSach();
+        String ten=sach.getTenSach();
+        String theloai=sach.getTheLoai();
+        String tacgia=sach.getTacGia();
+        String nxb=sach.getNhaXuatBan();
+        Date ngay=sach.getNgayXuatBan();
+        int gia=sach.getGiaThanh();
+        int sl=sach.getSoLuong();
+        //sử dụng lại một số hàm hỗ trợ như hàm kiểm tra mã sách hàm kiểm tra thời gian
+        if(kiemTraMaSach(ma)==true&&kiemTraDate(ngay)==true&&kiemTraInt(gia)==false&&kiemTraInt(sl)==false&&ten==null&&theloai==null&&nxb==null)
+        {
+            return true;//tất cả các dư liệu điều có và đã được kiểm tra bởi các hàm
+        }
+        return false;//có sai sót về 1 cuốn sách bị thiếu dữ liệu
     }
     
     
@@ -125,6 +206,7 @@ public class DanhSach_DAL {
     */
     public static Boolean themSach(Sach_DTO sach) {
         
+        DS_SACH_DTOs.add(sach); //thêm một cuốn sách vào danh sách Sách
         return true;                    // đúng thì trả về true
     }
     
@@ -137,7 +219,7 @@ public class DanhSach_DAL {
     
     */
     public static Boolean xoaSach(Sach_DTO sach) {
-        
+        boolean remove = DS_SACH_DTOs.remove(sach);//cái này không biết làm đại
         return true;                    // đúng thì trả về true
     }
     
@@ -157,9 +239,31 @@ public class DanhSach_DAL {
     /*
         kiểm tra số điện thoại
     */
-    private static Boolean kiemTraSDT(String sdt) {
-        
-        return true;
+    private static Boolean kiemTraSDT(String sdt) {//Hàm này copy trên mạng nên k rõ
+        Pattern pattern=Pattern.compile("^[0-9]*$");
+        Matcher matcher=pattern.matcher(sdt);
+        if(!matcher.matches())
+        {
+            return false;//chuỗi đầu vào không phải là số
+        }
+        else
+        {
+            if(sdt.length()==10||sdt.length()==11)//kiểm tra độ dài
+            {
+                return true;
+                //if(sdt.substring(0, 2).equals("09"))//ràng buộc nhập vào đầu số phải là 09
+                //{
+                //return true;
+                //}
+                //else 
+                // return false;
+                //phần này trên mạng hỗ trợ thêm kiểm tra đầu số hợp lệ
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
     
     /*
@@ -167,8 +271,12 @@ public class DanhSach_DAL {
         Mô tả:
     */
     private static Boolean kiemTraTTDatSach(DatSach_DTO datSach) {
-        
-        return true;
+        if(datSach.getHoTen()==null||datSach.getEmail()==null||datSach.getMaSach()==null||datSach.getSoLuong()<=0||datSach.getMaSach()==null||datSach.getSdt()==null)
+        // câu lênh if trên kiểm tra thông tin đặt sách có bị rổng phần nào không hoặc sai số lượng bị âm thì sẽ trả về flase
+        {
+            return false;
+        }
+        return true;// thông tin đặt sách không bị bỏ trống và số lượng lớn hơn 0
     }
     
     
@@ -179,7 +287,7 @@ public class DanhSach_DAL {
     
     */
     public static Boolean themDatSach(DatSach_DTO datSach) {
-        
+        boolean add = DS_DATSACH_DTOs.add(datSach);//cái này không biết làm đại
         return true;                    // đúng thì trả về true
     }
     
@@ -192,7 +300,7 @@ public class DanhSach_DAL {
     
     */
     public static Boolean xoaDatSach(DatSach_DTO datSach) {
-        
+        boolean remove = DS_DATSACH_DTOs.remove(datSach); //cái này không biết làm đại
         return true;                    // đúng thì trả về true
     }
     
