@@ -218,7 +218,8 @@ public class DanhSach_DAL {
         Mô tả:
     
     */
-    public static Boolean xoaSach(Sach_DTO sach) {
+    public static Boolean xoaSach( Sach_DTO sach) {
+        ;
         boolean remove = DS_SACH_DTOs.remove(sach);//cái này không biết làm đại
         return true;                    // đúng thì trả về true
     }
