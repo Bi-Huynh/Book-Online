@@ -478,17 +478,45 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     // sự kiện chọn giá trị
     private void cmbLocItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbLocItemStateChanged
+        ArrayList<Sach_DTO> temp = new ArrayList<>();
+        String theLoai = cmbLoc.getSelectedItem().toString();
 
+        if (!theLoai.equals("Lọc sách theo")) {
+            for (Sach_DTO sach : DanhSach_DAL.DS_SACH_DTOs) {
+                if (sach.getTheLoai().equals(theLoai)) {
+                    temp.add(sach);
+                }
+            }
+        } else {
+            temp = DanhSach_DAL.DS_SACH_DTOs;
+        }
+
+        hienThi(temp);
     }//GEN-LAST:event_cmbLocItemStateChanged
 
     // sự kiện chọn giá trị
     private void cmbSapXepItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSapXepItemStateChanged
+        ArrayList<Sach_DTO> temp = (ArrayList<Sach_DTO>) DanhSach_DAL.DS_SACH_DTOs.clone();
+        Collections.sort(temp);
 
+        switch (cmbSapXep.getSelectedItem().toString()) {
+            case "Giá tăng":
+
+                hienThi(temp);
+                break;
+            case "Giá giảm":
+
+                Collections.reverse(temp);
+                hienThi(temp);
+                break;
+            default:
+                hienThi(DanhSach_DAL.DS_SACH_DTOs);
+        }
     }//GEN-LAST:event_cmbSapXepItemStateChanged
 
     // sự kiện click chuột
     private void tblSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSachMouseClicked
-
+        int index = tblSach.getSelectedRow();
     }//GEN-LAST:event_tblSachMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -598,7 +626,18 @@ public class FrmAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        
+//        Sach_DTO sach = tblSachMouseClicked(evt);
+        String maSach = "JAV" + txtMaSach.getText();
+        String tenSach = txtTenSach.getText();
+        int index = cmbTheLoai.getSelectedIndex();
+        String theLoai = cmbTheLoai.getItemAt(index).toString();
+        String tacGia = txtTenTacGia.getText();
+        String nhaXuatBan = txtNhaXuatBan.getText();
+        Date ngayXuatBan = (Date) dteNgayXuatBan.getDate();
+//        Date ngayXuatBan  =dteNgayXuatBan.getDateFormatString();
+        int soLuong = Integer.parseInt(txtSoLuong.getText());
+        int giaThanh = Integer.parseInt(txtGiaThanh.getText());
+        Sach_DTO sachNew = new Sach_DTO(tenSach, theLoai, tacGia, nhaXuatBan, ngayXuatBan, soLuong, giaThanh);
     }//GEN-LAST:event_btnSuaActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
