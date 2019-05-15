@@ -5,18 +5,53 @@
  */
 package gui;
 
+import dal.DanhSach_DAL;
+import dto.DatSach_DTO;
+import dto.Sach_DTO;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
  */
 public class FrmSachDaXoa extends javax.swing.JFrame {
+    DefaultTableModel model = null; //khởi tạo hàm Model để hiển thị  lên table
+    ArrayList<DatSach_DTO> DS_DatSach = null;
+    ArrayList<Sach_DTO> DS_Sach = null;
+    Sach_DTO selectSach= null;
+    
 
-    /**
-     * Creates new form FrmSachDaXoa
-     */
+    
     public FrmSachDaXoa() {
         initComponents();
+        model=(DefaultTableModel) tblSach.getModel();
+        hienthiDatSach();
     }
+    
+    public void hienthisach(){// hàm để hiển thị thông tin sách đã xóa trong thư mục form đặt sách qua thư mục form sách đã xóa
+        model.setRowCount(0);
+        //hàm này đang nghiên cứu
+    }
+    
+    void hienthiDatSach(){
+        model.setRowCount(0);
+        for(Sach_DTO DS:DS_Sach){
+            model.addRow(new Object[]{//khai báo từng biến có trong giao diện
+                DS.getMaSach(),
+                DS.getTenSach(),
+                DS.getTheLoai(),
+                DS.getTacGia(),
+                DS.getNhaXuatBan(),
+                DS.getNgayXuatBan(),
+                DS.getSoLuong(),
+                DS.getGiaThanh(),
+            
+            });
+        }    
+            
+    }
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,15 +146,39 @@ public class FrmSachDaXoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
-        // TODO add your handling code here:
+        int index = tblSach.getSelectedRow();// khai báo phần giao diện để khi click chuột vào
+        if (index == -1) {// nếu phần index bằng 0 thì nó sẽ return đi vì trong bảng giao diện ko dc bằng 0
+            return;
+        }
+        selectSach= null;// sách hiện tại = null
+        // đưa toàn bộ giá trị của thằng được chọn lên trên các trường dữ liệu
+        // hàm khi click vào 1 quyển sách thì nó sẽ xóa
+        if(selectSach==null){// nếu hàm select = null thì nó sẽ trả về return
+            return;
+        }
+        DanhSach_DAL.xoaSach(selectSach);//
+        hienthiDatSach();// khi xóa 1 quyển sách thì nó sẽ hiển thị lên màn hình giao diện
+        
+        selectSach=null;// tại đây selectDatSach=null
+        //hàm xóa 1 quyển sách đã đặt
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnXoaAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaAllMouseClicked
-        // TODO add your handling code here:
+         if (selectSach!=null) {// nếu selectSach1 khác null thì nó sẽ trả về phần sách đã xóa
+            DanhSach_DAL.xoaSach(selectSach);
+            selectSach = null;
+            hienthiDatSach();//hàm xóa tất cả sách trong thư mục
+        }
     }//GEN-LAST:event_btnXoaAllMouseClicked
 
     private void tblSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSachMouseClicked
-        
+        int index = tblSach.getSelectedRow();//khai báo biến index là bảng tblsach. Để khi click chuột vào thì nó sẽ sử dụng dc
+        if (index == -1) {
+            return;
+        }
+        selectSach= null;// giá trị select = null
+        // đưa toàn bộ giá trị của thằng được chọn lên trên các trường dữ liệu
+       
     }//GEN-LAST:event_tblSachMouseClicked
 
 
