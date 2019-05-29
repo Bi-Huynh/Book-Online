@@ -5,6 +5,7 @@
  */
 package gui;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import dal.DanhSach_DAL;
 import dto.DatSach_DTO;
 import dto.Sach_DTO;
@@ -296,7 +297,7 @@ public class FrmUser extends javax.swing.JFrame {
         và đưa vào datsach rồi thêm cái datsach đó vào trong danh sách đặt sách
      */
     private void btnDatSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatSachActionPerformed
-        DatSach_DTO datSach = new DatSach_DTO(
+       try{ DatSach_DTO datSach = new DatSach_DTO(
                 txtHoTen.getText(),
                 txtSDT.getText(),
                 txtEmail.getText(),
@@ -313,6 +314,10 @@ public class FrmUser extends javax.swing.JFrame {
         txtMaSach.setText("");
         txtTenSach.setText("");
         txtSoLuong.setText("");
+       }catch(java.lang.NumberFormatException ex){
+           JOptionPane.showMessageDialog(null, "ban chua nhap thong tin");
+       }
+       
     }//GEN-LAST:event_btnDatSachActionPerformed
 
     /*
