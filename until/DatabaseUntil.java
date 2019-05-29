@@ -33,7 +33,6 @@ public class DatabaseUntil {
         try {
             
             Class.forName(DRIVER);
-            System.out.println("Driver loaded.");
             con = DriverManager.getConnection(SEVER, USERNAME, PASSWORD);
             
         } catch (ClassNotFoundException | SQLException ex) {
@@ -80,7 +79,6 @@ public class DatabaseUntil {
         for (ResultSet rs : resultSets) {
             try {
                 rs.close();
-                System.out.println("ResultSet closed.");
             } catch (SQLException ex) {
                 Logger.getLogger(DatabaseUntil.class.getName()).log(Level.SEVERE, null, ex);
             }

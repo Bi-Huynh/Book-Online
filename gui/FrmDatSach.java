@@ -6,70 +6,41 @@
 package gui;
 
 import dal.DanhSach_DAL;
-import dal.Sach_DAL;
 import dto.DatSach_DTO;
-import dto.Sach_DTO;
-import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Admin
  */
-public class FrmDatSach extends javax.swing.JFrame {// khai báo danh sách sách
-    ArrayList<DatSach_DTO> DS_DatSach = null;
-    ArrayList<Sach_DTO> DS_Sach = null;
-    DefaultTableModel modelTbl = null;
-    DatSach_DTO selectDatSach= null;
+public class FrmDatSach extends javax.swing.JFrame {
+
+    DefaultTableModel model = null;
+    DatSach_DTO selectDatSach = null;
     
+    /**
+     * Creates new form FrmDatSach
+     */
+    public FrmDatSach() {
+        initComponents();
+        model = (DefaultTableModel) tblDatSach.getModel();
+        
+    }
 
     
-    public FrmDatSach() {// khai báo hàm model và hàm hiển thị thông tin dịch vụ trong ArrayList lên ListView
-        initComponents();
-        modelTbl=(DefaultTableModel) tblDatSach.getModel();
-        
-        
-        if(DS_DatSach != null){
-            hienthiDatSach();
-        }
-        
-        if(DS_Sach!=null){
-            hienthisach();
-        }
-        
-        
-        
-    }
-    
-    
-    
-    void hienthisach(){// hàm hiển thị thông tin sách đã xóa qua form sách đã xóa
-        // hàm này đang nghiên cứu
-        
-    }
-    
-    void hienthiDatSach(){
-        modelTbl.setRowCount(0);
-        for(DatSach_DTO DS:DS_DatSach){
-            modelTbl.addRow(new Object[]{//khai báo từng biến có trong giao diện
-                DS.getHoTen(),
-                DS.getSdt(),
-                DS.getEmail(),
-                DS.getMaSach(),
-                DS.getTenSach(),
-                DS.getSoLuong(),
-            
+    private void hienThi() {
+        model.setRowCount(0);
+        for (DatSach_DTO dt : DanhSach_DAL.getDS_DATSACH_DTOs()) {
+            model.addRow(new Object[] {
+                dt.getHoTen(),
+                dt.getSdt(),
+                dt.getEmail(),
+                dt.getMaSach(),
+                dt.getTenSach(),
+                dt.getSoLuong()
             });
-        }    
-            
+        }
     }
-    private void format_TruongDuLieu() {
-        selectDatSach=null;
-    }//hàm dùng để phục vụ chuyển chuỗi dịch vụ trên table sang danh sách dịch
-    //* vụ vì list trả về 1 danh sách String dịch vụ nên phải chuyển về danh sách
-     //* dịch vụ
-     //*
-     //* @return ArrayList<DDatSach_DTO>
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -94,21 +65,11 @@ public class FrmDatSach extends javax.swing.JFrame {// khai báo danh sách sác
                 btnXoaAllMouseClicked(evt);
             }
         });
-        btnXoaAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaAllActionPerformed(evt);
-            }
-        });
 
         btnXoa.setText("Xóa");
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnXoaMouseClicked(evt);
-            }
-        });
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
             }
         });
 
@@ -169,65 +130,23 @@ public class FrmDatSach extends javax.swing.JFrame {// khai báo danh sách sác
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
-         if(selectDatSach==null){// nếu hàm select = null thì nó sẽ trả về return
+        if (selectDatSach == null) {
             return;
         }
         DanhSach_DAL.xoaDatSach(selectDatSach);
-        int index = tblDatSach.getSelectedRow();// khai báo phần giao diện để khi click chuột vào
-        if (index == -1) {// nếu phần index bằng 0 thì nó sẽ return đi vì trong bảng giao diện ko dc bằng 0
-            return;
-        }
-        selectDatSach= null;// sách hiện tại = null
-        // đưa toàn bộ giá trị của thằng được chọn lên trên các trường dữ liệu
-       
-        
-      
+        hienThi();
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnXoaAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaAllMouseClicked
-        if (selectDatSach!=null) {
-            Sach_DAL.deleteDatSach(toString());
-            selectDatSach = null;
-            hienthiDatSach();//hàm xóa tất cả sách trong thư mục
-            
-        }
-        int index = tblDatSach.getSelectedRow();// khai báo phần giao diện để khi click chuột vào
-        if (index == -1) {// nếu phần index bằng 0 thì nó sẽ return đi vì trong bảng giao diện ko dc bằng 0
-            return;
-        }
-        selectDatSach= null;// sách hiện tại = null
-        
+        DanhSach_DAL.xoaAll_DatSach();
     }//GEN-LAST:event_btnXoaAllMouseClicked
 
     private void tblDatSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatSachMouseClicked
-        int index = tblDatSach.getSelectedRow();// khai báo phần giao diện để khi click chuột vào
-        if (index == -1) {// nếu phần index bằng 0 thì nó sẽ return đi vì trong bảng giao diện ko dc bằng 0
-            return;
+        int index = tblDatSach.getSelectedRow();
+        if (index >= 0) {
+            selectDatSach = DanhSach_DAL.getDS_DATSACH_DTOs().get(index);
         }
-        selectDatSach= null;// sách hiện tại = null
-        // đưa toàn bộ giá trị của thằng được chọn lên trên các trường dữ liệu
-       
-        // hàm khi click vào 1 quyển sách thì nó sẽ xóa
     }//GEN-LAST:event_tblDatSachMouseClicked
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        if(selectDatSach==null){// nếu hàm select = null thì nó sẽ trả về return
-            return;
-        }
-        DanhSach_DAL.xoaDatSach(selectDatSach);//
-        hienthiDatSach();// khi xóa 1 quyển sách thì nó sẽ hiển thị lên màn hình giao diện
-        
-        selectDatSach=null;// tại đây selectDatSach=null
-        //hàm xóa 1 quyển sách đã đặt
-    }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void btnXoaAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaAllActionPerformed
-        if (selectDatSach!=null) {
-            DanhSach_DAL.xoaDatSach(selectDatSach);
-            selectDatSach = null;
-            hienthiDatSach();//hàm xóa tất cả sách trong thư mục
-        }
-    }//GEN-LAST:event_btnXoaAllActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnXoa;

@@ -7,6 +7,10 @@ package dto;
 
 import java.sql.Date;
 
+
+
+
+
 /**
  *
  * @author Admin
@@ -24,7 +28,8 @@ public class Sach_DTO implements Comparable<Sach_DTO>{
     public Sach_DTO() {
     }
 
-    public Sach_DTO(String tenSach, String theLoai, String tacGia, String nhaXuatBan, Date ngayXuatBan, int soLuong, int giaThanh) {
+    public Sach_DTO(String tenSach, String theLoai, String tacGia,
+            String nhaXuatBan, Date ngayXuatBan, int soLuong, int giaThanh) {
         this.tenSach = tenSach;
         this.theLoai = theLoai;
         this.tacGia = tacGia;
@@ -34,7 +39,8 @@ public class Sach_DTO implements Comparable<Sach_DTO>{
         this.giaThanh = giaThanh;
     }
 
-    public Sach_DTO(String maSach, String tenSach, String theLoai, String tacGia, String nhaXuatBan, Date ngayXuatBan, int soLuong, int giaThanh) {
+    public Sach_DTO(String maSach, String tenSach, String theLoai, String tacGia,
+            String nhaXuatBan, Date ngayXuatBan, int soLuong, int giaThanh) {
         this.maSach = maSach;
         this.tenSach = tenSach;
         this.theLoai = theLoai;
@@ -108,16 +114,6 @@ public class Sach_DTO implements Comparable<Sach_DTO>{
     public void setGiaThanh(int giaThanh) {
         this.giaThanh = giaThanh;
     }
-
-    @Override
-    public String toString() {
-        return "Mã Sách : " + maSach + ", Tên Sách : " + tenSach + ", Thể Loại : " 
-                + theLoai + ", Tác Giả : " + tacGia + ", Nhà Xuất Bản : " 
-                + nhaXuatBan + ", Ngày Xuất Bản : " + ngayXuatBan + ", Số Lượng : " 
-                + soLuong + ", Giá Thành : " + giaThanh;
-    }
-    
-    
 
     @Override
     public int compareTo(Sach_DTO sach) {

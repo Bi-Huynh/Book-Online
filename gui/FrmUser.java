@@ -27,7 +27,7 @@ public class FrmUser extends javax.swing.JFrame {
     public FrmUser() {
         initComponents();
         model = (DefaultTableModel) tblSachUser.getModel();
-        hienThi(DanhSach_DAL.DS_SACH_DTOs);
+        hienThi(DanhSach_DAL.getGetDS_SACH_DTOs());
     }
 
     private void hienThi(ArrayList<Sach_DTO> dsArrayList) {
@@ -103,6 +103,11 @@ public class FrmUser extends javax.swing.JFrame {
         });
 
         txtTimKiem.setText("Tìm kiếm");
+        txtTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTimKiemMouseClicked(evt);
+            }
+        });
 
         btnDatSach.setText("Đặt");
         btnDatSach.addActionListener(new java.awt.event.ActionListener() {
@@ -270,17 +275,19 @@ public class FrmUser extends javax.swing.JFrame {
      */
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
 
-        String userName = txtUserName.getText();
-        String passWord = txtPass.getText();
-
-        if (DanhSach_DAL.kiemTraTaiKhoan(userName, passWord)) {
-            new FrmAdmin(userName).setVisible(true);
-            this.hide();
-        } else {
-            JOptionPane.showMessageDialog(null, "Thông tin tài khoản không hợp lệ");
-            txtUserName.setText("");
-            txtPass.setText("");
-        }
+//        String userName = txtUserName.getText();
+//        String passWord = txtPass.getText();
+//
+//        if (DanhSach_DAL.kiemTraTaiKhoan(userName, passWord)) {
+//            new FrmAdmin(userName).setVisible(true);
+//            this.hide();
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Thông tin tài khoản không hợp lệ");
+//            txtUserName.setText("");
+//            txtPass.setText("");
+//        }
+        new FrmAdmin("huynhtrungduc@gmail.com").setVisible(true);
+        this.hide();
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /*
@@ -322,7 +329,7 @@ public class FrmUser extends javax.swing.JFrame {
                 if (sach == null) {
                     JOptionPane.showMessageDialog(null, "Không tồn tại sách");
                 } else {
-                    JOptionPane.showMessageDialog(null, sach);
+                    JOptionPane.showMessageDialog(null, sach.toString());
                 }
                 break;
             case "Tác giả":
@@ -330,7 +337,7 @@ public class FrmUser extends javax.swing.JFrame {
                 if (sach == null) {
                     JOptionPane.showMessageDialog(null, "Không tồn tại sách");
                 } else {
-                    JOptionPane.showMessageDialog(null, sach);
+                    JOptionPane.showMessageDialog(null, sach.toString());       // tại sao chỗ này không toString được
                 }
                 break;
             case "Tên sách":
@@ -338,7 +345,7 @@ public class FrmUser extends javax.swing.JFrame {
                 if (sach == null) {
                     JOptionPane.showMessageDialog(null, "Không tồn tại sách");
                 } else {
-                    JOptionPane.showMessageDialog(null, sach);
+                    JOptionPane.showMessageDialog(null, sach.toString());
                 }
                 break;
             default:
@@ -349,21 +356,19 @@ public class FrmUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void cmbSapXepItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSapXepItemStateChanged
-        ArrayList<Sach_DTO> temp = (ArrayList<Sach_DTO>) DanhSach_DAL.DS_SACH_DTOs.clone();
+        ArrayList<Sach_DTO> temp = (ArrayList<Sach_DTO>) DanhSach_DAL.getGetDS_SACH_DTOs().clone();
         Collections.sort(temp);
 
         switch (cmbSapXep.getSelectedItem().toString()) {
             case "Giá tăng":
-
                 hienThi(temp);
                 break;
             case "Giá giảm":
-
                 Collections.reverse(temp);
                 hienThi(temp);
                 break;
             default:
-                hienThi(DanhSach_DAL.DS_SACH_DTOs);
+                hienThi(DanhSach_DAL.getGetDS_SACH_DTOs());
         }
     }//GEN-LAST:event_cmbSapXepItemStateChanged
 
@@ -372,22 +377,52 @@ public class FrmUser extends javax.swing.JFrame {
         String theLoai = cmbLoc.getSelectedItem().toString();
 
         if (!theLoai.equals("Lọc sách theo")) {
-            for (Sach_DTO sach : DanhSach_DAL.DS_SACH_DTOs) {
+            for (Sach_DTO sach : DanhSach_DAL.getGetDS_SACH_DTOs()) {
                 if (sach.getTheLoai().equals(theLoai)) {
                     temp.add(sach);
                 }
             }
         } else {
-            temp = DanhSach_DAL.DS_SACH_DTOs;
+            temp = DanhSach_DAL.getGetDS_SACH_DTOs();
         }
-
         hienThi(temp);
     }//GEN-LAST:event_cmbLocItemStateChanged
+
+    private void txtTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseClicked
+        txtTimKiem.setText("");
+    }//GEN-LAST:event_txtTimKiemMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmUser().setVisible(true);
