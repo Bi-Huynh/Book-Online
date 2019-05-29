@@ -24,6 +24,7 @@ public class FrmDatSach extends javax.swing.JFrame {
     public FrmDatSach() {
         initComponents();
         model = (DefaultTableModel) tblDatSach.getModel();
+        hienThi();
         
     }
 

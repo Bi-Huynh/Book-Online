@@ -132,7 +132,7 @@ public class Sach_DAL {
             while (rs.next()) {
                 DatSach_DTO datsach = new DatSach_DTO(
                         rs.getString("HoTen"),
-                        rs.getString("SoDienThoai"),
+                        rs.getString("SDT"),
                         rs.getString("Email"),
                         rs.getString("MaSach"),
                         rs.getString("TenSach"),
