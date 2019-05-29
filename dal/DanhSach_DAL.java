@@ -18,10 +18,10 @@ import java.util.regex.Pattern;
  * @author Admin
  */
 public class DanhSach_DAL {
-    public final static ArrayList<Sach_DTO> DS_SACH_DTOs = Sach_DAL.getDatabase_Sach();
-    public final static ArrayList<Sach_DTO> DS_SACHDAXOA_DTOs = Sach_DAL.getDatabase_SachDaXoa();
-    public final static ArrayList<DatSach_DTO> DS_DATSACH_DTOs = Sach_DAL.getDatabase_DatSach();
-    public final static ArrayList<TaiKhoan_DTO> DS_TAIKHOAN_DTOs = Sach_DAL.getDatabase_TaiKhoan();
+    private final static ArrayList<Sach_DTO> DS_SACH_DTOs = Sach_DAL.getDatabase_Sach();
+    private final static ArrayList<Sach_DTO> DS_SACHDAXOA_DTOs = Sach_DAL.getDatabase_SachDaXoa();
+    private final static ArrayList<DatSach_DTO> DS_DATSACH_DTOs = Sach_DAL.getDatabase_DatSach();
+    private final static ArrayList<TaiKhoan_DTO> DS_TAIKHOAN_DTOs = Sach_DAL.getDatabase_TaiKhoan();
 
     // không cho khởi tạo
     private DanhSach_DAL() {
