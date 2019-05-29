@@ -59,7 +59,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         txtMaSach = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtTenSach = new javax.swing.JTextField();
-        cmbTheLoai = new javax.swing.JComboBox<>();
+        cmbTheLoai = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         txtTenTacGia = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -75,15 +75,15 @@ public class FrmAdmin extends javax.swing.JFrame {
         txtGiaThanh = new javax.swing.JTextField();
         btnFrmUser = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
-        cmbTimKiem = new javax.swing.JComboBox<>();
+        cmbTimKiem = new javax.swing.JComboBox<String>();
         btnTimKiem = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        cmbLoc = new javax.swing.JComboBox<>();
+        cmbLoc = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
-        cmbSapXep = new javax.swing.JComboBox<>();
+        cmbSapXep = new javax.swing.JComboBox<String>();
         btnTTDatSach = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSach = new javax.swing.JTable();
@@ -108,7 +108,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         jLabel2.setText("Tên Sách : ");
 
-        cmbTheLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc", "Ly Hoc", "Thien Van Hoc", "Co Ngu Hoc" }));
+        cmbTheLoai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc", "Ly Hoc", "Thien Van Hoc", "Co Ngu Hoc" }));
 
         jLabel3.setText("Tác Giả : ");
 
@@ -138,7 +138,7 @@ public class FrmAdmin extends javax.swing.JFrame {
             }
         });
 
-        cmbTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn mục tìm kiếm", "Mã", "Tác giả", "Tên sách" }));
+        cmbTimKiem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chọn mục tìm kiếm", "Mã", "Tác giả", "Tên sách" }));
 
         btnTimKiem.setText("Tìm Kiếm");
         btnTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,6 +156,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThemMouseClicked(evt);
+            }
+        });
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
             }
         });
         btnThem.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -190,7 +195,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         jLabel10.setText("Lọc : ");
 
-        cmbLoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lọc sách theo", "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc" }));
+        cmbLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lọc sách theo", "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc" }));
         cmbLoc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbLocItemStateChanged(evt);
@@ -199,7 +204,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         jLabel11.setText("Sắp xếp :");
 
-        cmbSapXep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp theo", "Giá tăng", "Giá giảm" }));
+        cmbSapXep.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sắp xếp theo", "Giá tăng", "Giá giảm" }));
         cmbSapXep.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbSapXepItemStateChanged(evt);
@@ -597,6 +602,10 @@ public class FrmAdmin extends javax.swing.JFrame {
         txtSoLuong.setText(selectSach.getSoLuong() + "");
         txtGiaThanh.setText(selectSach.getGiaThanh() + "");
     }//GEN-LAST:event_tblSachMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

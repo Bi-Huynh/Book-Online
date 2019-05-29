@@ -276,19 +276,19 @@ public class FrmUser extends javax.swing.JFrame {
      */
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
 
-//        String userName = txtUserName.getText();
-//        String passWord = txtPass.getText();
-//
-//        if (DanhSach_DAL.kiemTraTaiKhoan(userName, passWord)) {
-//            new FrmAdmin(userName).setVisible(true);
-//            this.hide();
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Thông tin tài khoản không hợp lệ");
-//            txtUserName.setText("");
-//            txtPass.setText("");
-//        }
-        new FrmAdmin("huynhtrungduc@gmail.com").setVisible(true);
-        this.hide();
+        String userName = txtUserName.getText();
+        String passWord = txtPass.getText();
+
+        if (DanhSach_DAL.kiemTraTaiKhoan(userName, passWord)) {
+            new FrmAdmin(userName).setVisible(true);
+            this.hide();
+        } else {
+            JOptionPane.showMessageDialog(null, "Thông tin tài khoản không hợp lệ");
+            txtUserName.setText("");
+            txtPass.setText("");
+       }
+        //new FrmAdmin("huynhtrungduc@gmail.com").setVisible(true);
+        //this.hide();
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /*

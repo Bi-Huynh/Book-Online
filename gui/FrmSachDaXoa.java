@@ -24,9 +24,10 @@ public class FrmSachDaXoa extends javax.swing.JFrame {
     public FrmSachDaXoa() {
         initComponents();
         model = (DefaultTableModel) tblSach.getModel();
+        hienThi();
     }
     
-    void hienThi() {
+     private void hienThi() {
         model.setRowCount(0);
         if (DanhSach_DAL.getDS_SACHDAXOA_DTOs() == null) {
             return;
