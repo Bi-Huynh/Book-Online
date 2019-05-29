@@ -26,7 +26,9 @@ import until.DatabaseUntil;
     cái file Sach_DAL này là để kết nối tới database
  */
 public class Sach_DAL {
-
+    private static Connection conn = null;
+    private static PreparedStatement ps = null;
+    private static ResultSet rs = null;
     private Sach_DAL() {
     }
     
@@ -38,12 +40,12 @@ public class Sach_DAL {
     
     */
     public static ArrayList<Sach_DTO> getDatabase_Sach () {
-        ArrayList<Sach_DTO> S_DTO = new ArrayList<>();
+        ArrayList<Sach_DTO> S_DTO = new ArrayList<>(); 
         String sql = "SELECT * FROM  sach";
-        Connection conn = DatabaseUntil.connection();
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            conn = DatabaseUntil.connection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             while(rs.next()){
             Sach_DTO sach_DTO = new Sach_DTO();
             sach_DTO.setMaSach(rs.getString(1));
@@ -59,6 +61,11 @@ public class Sach_DAL {
         } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
+        }
         return S_DTO;
     }
     
@@ -72,11 +79,11 @@ public class Sach_DAL {
     */
     public static ArrayList<Sach_DTO> getDatabase_SachDaXoa () {
         ArrayList<Sach_DTO> list_sach = new ArrayList<>();
-        String sql ="SELECT * FROM sachdaxoa";
-        Connection conn = DatabaseUntil.connection();
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            String sql= "SELECT * FROM sachdaxoa";
+            conn = DatabaseUntil.connection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             while(rs.next()){
                Sach_DTO sach_DTO = new Sach_DTO();
                 sach_DTO.setMaSach(rs.getString(1));
@@ -91,6 +98,10 @@ public class Sach_DAL {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
         }
         return list_sach;
     }
@@ -106,10 +117,10 @@ public class Sach_DAL {
     public static ArrayList<DatSach_DTO> getDatabase_DatSach () {
         ArrayList<DatSach_DTO> list_datsach = new ArrayList<>();
         String sql ="SELECT * FROM datsach";
-        Connection conn = DatabaseUntil.connection();
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+             conn = DatabaseUntil.connection();
+             ps = conn.prepareStatement(sql);
+             rs = ps.executeQuery();
             while(rs.next()){
                 DatSach_DTO datsach_DTO = new DatSach_DTO();
                 datsach_DTO.setHoTen(rs.getString(1));
@@ -122,6 +133,10 @@ public class Sach_DAL {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
         }
         return list_datsach;
     }
@@ -130,16 +145,17 @@ public class Sach_DAL {
     /*
         hàm trả về danh sách chứa các tài khoản có trong database taikhoan
     
-        Mô tả:
+        Mô tả: new 1 cái danh sách tài khoản truyền câu truy vấn và thực hiện các
+    câu lệnh để lấy dữ liệu về danh sách 
     
     */
     public static ArrayList<TaiKhoan_DTO> getDatabase_TaiKhoan () {
         ArrayList<TaiKhoan_DTO> list_taikhoan = new ArrayList<>();
-        String sql ="SELECT * FROM taikhoan";
-        Connection conn = DatabaseUntil.connection();
+        String sql = "SELECT * FROM taikhoan";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            conn = DatabaseUntil.connection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             while(rs.next()){
                 TaiKhoan_DTO tk_DTO = new TaiKhoan_DTO();
                 tk_DTO.setiD(rs.getInt(1));
@@ -149,6 +165,10 @@ public class Sach_DAL {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
         }
         return list_taikhoan;
     }
@@ -161,10 +181,11 @@ public class Sach_DAL {
     
     */
     public static Boolean insertSach (Sach_DTO sach, String table) {
-        Connection conn = DatabaseUntil.connection();
+        String sql ="INSERT INTO sach " +
+                    " VALUES(?,?,?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = conn.prepareCall("INSERT INTO sach(MaSach , TenSach , TheLoai , TacGia , NhaXuatBan , NgayXuatBan , SoLuong , GiaThanh)" +
-                    "VALUES(?,?,?,?,?,?,?,?)");
+            conn = DatabaseUntil.connection();
+            ps = conn.prepareStatement(sql);
             ps.setString(1, sach.getMaSach());
             ps.setString(2, sach.getTenSach());
             ps.setString(3, sach.getTheLoai());
@@ -176,6 +197,10 @@ public class Sach_DAL {
             return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
         }
         return true;
     }
@@ -189,13 +214,18 @@ public class Sach_DAL {
     
     */
     public static Boolean deleteSach (String maSach, String table) {
-        Connection conn = DatabaseUntil.connection();
+        String sql ="DELETE FROM "+ table + " WHERE MaSach = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM "+ table + " WHERE MaSach = ?");
+            conn = DatabaseUntil.connection();
+            ps = conn.prepareStatement(sql);
             ps.setString(1, maSach);
             return ps.executeUpdate() >0;
         } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
         }
         return true;
     }
@@ -208,9 +238,11 @@ public class Sach_DAL {
     
     */
     public static Boolean updateSach (Sach_DTO sach) {
-        Connection conn = DatabaseUntil.connection();
+        String sql ="UPDATE sach SET TenSach = ? , TheLoai = ? , TacGia = ? , "
+                + "NhaXuatBan = ? , NgayXuatBan = ? , SoLuong = ? , GiaThanh = ? WHERE MaSach = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement("UPDATE sach SET TenSach = ? , TheLoai = ? , TacGia = ? , NhaXuatBan = ? , NgayXuatBan = ? , SoLuong = ? , GiaThanh = ? WHERE MaSach = ?");
+            conn = DatabaseUntil.connection();
+            ps = conn.prepareStatement(sql);
             ps.setString(1, sach.getTenSach());
             ps.setString(2, sach.getTheLoai());
             ps.setString(3, sach.getTacGia());
@@ -222,6 +254,10 @@ public class Sach_DAL {
             return ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
         }
         
         return true;
@@ -235,10 +271,11 @@ public class Sach_DAL {
     
     */
     public static Boolean insertDatSach (DatSach_DTO datsach) {
-        Connection conn = DatabaseUntil.connection();
+        String sql ="INSERT INTO datsach"  +
+                     " VALUES(?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO datsach(hoten , sdt , email , masach , tensach , soluong)"  +
-                                                        " VALUES(?,?,?,?,?,?)");
+            conn = DatabaseUntil.connection();
+            ps = conn.prepareStatement(sql);
             ps.setString(1, datsach.getHoTen());
             ps.setString(2, datsach.getSdt());
             ps.setString(3, datsach.getEmail());
@@ -248,6 +285,11 @@ public class Sach_DAL {
             return  ps.executeUpdate()>0;
                     } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
         }
         return true;
     }
@@ -261,13 +303,19 @@ public class Sach_DAL {
     
     */
     public static Boolean deleteDatSach (String maSach) {
-        Connection conn = DatabaseUntil.connection();
+        String sql = "DELETE FROM sach Where MaSach = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM sach Where MaSach = ?");
+            conn = DatabaseUntil.connection();
+            ps = conn.prepareStatement(sql);
             ps.setString(1, maSach);
             return  ps.executeUpdate()>0;
         } catch (SQLException ex) {
             Logger.getLogger(Sach_DAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            DatabaseUntil.close(conn);
+            DatabaseUntil.close(ps);
+            DatabaseUntil.close(rs);
         }
         return true;
     }
