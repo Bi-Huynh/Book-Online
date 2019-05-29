@@ -23,6 +23,24 @@ public class DanhSach_DAL {
     private final static ArrayList<DatSach_DTO> DS_DATSACH_DTOs = Sach_DAL.getDatabase_DatSach();
     private final static ArrayList<TaiKhoan_DTO> DS_TAIKHOAN_DTOs = Sach_DAL.getDatabase_TaiKhoan();
 
+    public static ArrayList<Sach_DTO> getDS_SACH_DTOs() {
+        return DS_SACH_DTOs;
+    }
+
+    public static ArrayList<Sach_DTO> getDS_SACHDAXOA_DTOs() {
+        return DS_SACHDAXOA_DTOs;
+    }
+
+    public static ArrayList<DatSach_DTO> getDS_DATSACH_DTOs() {
+        return DS_DATSACH_DTOs;
+    }
+
+    public static ArrayList<TaiKhoan_DTO> getDS_TAIKHOAN_DTOs() {
+        return DS_TAIKHOAN_DTOs;
+    }
+    
+    
+
     // không cho khởi tạo
     private DanhSach_DAL() {
     }
