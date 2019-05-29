@@ -25,9 +25,10 @@ public class FrmAdmin extends javax.swing.JFrame {
     /**
      * Creates new form FrmAdmin
      */
-    public FrmAdmin(String nameAdmin) {
+    //public FrmAdmin(String nameAdmin)
+    public FrmAdmin() {
         initComponents();
-        labTenAdmin.setText(nameAdmin);
+        //labTenAdmin.setText(nameAdmin);
         model = (DefaultTableModel) tblSach.getModel();
 
         hienThi(DanhSach_DAL.getGetDS_SACH_DTOs());
@@ -59,7 +60,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         txtMaSach = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtTenSach = new javax.swing.JTextField();
-        cmbTheLoai = new javax.swing.JComboBox<String>();
+        cmbTheLoai = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         txtTenTacGia = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -75,15 +76,15 @@ public class FrmAdmin extends javax.swing.JFrame {
         txtGiaThanh = new javax.swing.JTextField();
         btnFrmUser = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
-        cmbTimKiem = new javax.swing.JComboBox<String>();
+        cmbTimKiem = new javax.swing.JComboBox<>();
         btnTimKiem = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        cmbLoc = new javax.swing.JComboBox<String>();
+        cmbLoc = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        cmbSapXep = new javax.swing.JComboBox<String>();
+        cmbSapXep = new javax.swing.JComboBox<>();
         btnTTDatSach = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSach = new javax.swing.JTable();
@@ -108,7 +109,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         jLabel2.setText("Tên Sách : ");
 
-        cmbTheLoai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc", "Ly Hoc", "Thien Van Hoc", "Co Ngu Hoc" }));
+        cmbTheLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc", "Ly Hoc", "Thien Van Hoc", "Co Ngu Hoc" }));
 
         jLabel3.setText("Tác Giả : ");
 
@@ -138,12 +139,17 @@ public class FrmAdmin extends javax.swing.JFrame {
             }
         });
 
-        cmbTimKiem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chọn mục tìm kiếm", "Mã", "Tác giả", "Tên sách" }));
+        cmbTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn mục tìm kiếm", "Mã", "Tác giả", "Tên sách" }));
 
         btnTimKiem.setText("Tìm Kiếm");
         btnTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTimKiemMouseClicked(evt);
+            }
+        });
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
             }
         });
         btnTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -195,7 +201,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         jLabel10.setText("Lọc : ");
 
-        cmbLoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lọc sách theo", "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc" }));
+        cmbLoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lọc sách theo", "Van Hoc", "IT", "Khoa Hoc", "Toan Hoc" }));
         cmbLoc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbLocItemStateChanged(evt);
@@ -204,7 +210,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         jLabel11.setText("Sắp xếp :");
 
-        cmbSapXep.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sắp xếp theo", "Giá tăng", "Giá giảm" }));
+        cmbSapXep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp theo", "Giá tăng", "Giá giảm" }));
         cmbSapXep.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbSapXepItemStateChanged(evt);
@@ -399,12 +405,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         new FrmSachDaXoa().setVisible(true);
     }//GEN-LAST:event_btnDSSachXoaActionPerformed
 
-    
     private void themSach() {
-        
+
         java.util.Date date = dteNgayXuatBan.getDate();
         java.sql.Date date1 = new Date(date.getTime());
-        
+
         Sach_DTO sach;
         sach = new Sach_DTO(
                 txtMaSach.getText(),
@@ -461,11 +466,10 @@ public class FrmAdmin extends javax.swing.JFrame {
         xoaSach();
     }//GEN-LAST:event_btnXoaMouseClicked
 
-    
     private void suaSach() {
         java.util.Date date = dteNgayXuatBan.getDate();
         java.sql.Date date1 = new Date(date.getTime());
-        
+
         Sach_DTO sach = new Sach_DTO(
                 txtMaSach.getText(),
                 txtTenSach.getText(),
@@ -493,7 +497,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         txtMaSach.setVisible(true);
         selectSach = null;
     }
-    
+
     // sự kiện click chuột
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
         suaSach();
@@ -604,9 +608,104 @@ public class FrmAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_tblSachMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+        java.util.Date date = dteNgayXuatBan.getDate();
+        java.sql.Date date1 = new Date(date.getTime());
+
+        Sach_DTO sach;
+        sach = new Sach_DTO(
+                txtMaSach.getText(),
+                txtTenSach.getText(),
+                cmbTheLoai.getSelectedItem().toString(),
+                txtTenTacGia.getText(),
+                txtNhaXuatBan.getText(),
+                date1,
+                Integer.parseInt(txtSoLuong.getText()),
+                Integer.parseInt(txtSoLuong.getText())
+        );
+
+        if (DanhSach_DAL.themSach(sach)) {
+            JOptionPane.showMessageDialog(null, "Thêm sách thành công");
+            hienThi(DanhSach_DAL.getGetDS_SACH_DTOs());
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm sách thất bại");
+        }
+        txtMaSach.setVisible(true);
+        selectSach = null;
+
     }//GEN-LAST:event_btnThemActionPerformed
 
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        Sach_DTO sach = null;
+        switch (cmbTimKiem.getSelectedItem().toString()) {
+            case "Mã":
+                sach = DanhSach_DAL.getSach_MaSach(txtTimKiem.getText());
+                if (sach == null) {
+                    JOptionPane.showMessageDialog(null, "Không tồn tại sách");
+                } else {
+                    JOptionPane.showMessageDialog(null, sach.toString());
+                }
+                break;
+            case "Tác giả":
+                sach = DanhSach_DAL.getSach_TacGia(txtTimKiem.getText());
+                if (sach == null) {
+                    JOptionPane.showMessageDialog(null, "Không tồn tại sách");
+                } else {
+                    JOptionPane.showMessageDialog(null, sach.toString());       // tại sao chỗ này không toString được
+                }
+                break;
+            case "Tên sách":
+                sach = DanhSach_DAL.getSach_TenSach(txtTimKiem.getText());
+                if (sach == null) {
+                    JOptionPane.showMessageDialog(null, "Không tồn tại sách");
+                } else {
+                    JOptionPane.showMessageDialog(null, sach.toString());
+                }
+                break;
+            default:
+                throw new AssertionError();
+        }
+        txtTimKiem.setText("");
+        cmbTimKiem.setSelectedIndex(0);
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                //new FrmAdmin(nameAdmin).setVisible(true);
+                new FrmAdmin().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDSSachXoa;
