@@ -24,17 +24,19 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmAdmin
+     * @param nameAdmin
      */
-    //public FrmAdmin(String nameAdmin)
-    public FrmAdmin() {
+    public FrmAdmin(String nameAdmin) {
         initComponents();
-        //labTenAdmin.setText(nameAdmin);
+        labTenAdmin.setText(nameAdmin);
         model = (DefaultTableModel) tblSach.getModel();
-
         hienThi(DanhSach_DAL.getGetDS_SACH_DTOs());
     }
 
     private void hienThi(ArrayList<Sach_DTO> dsArrayList) {
+        if (dsArrayList == null) {
+            return;
+        }
         model.setRowCount(0);
         for (Sach_DTO sach : dsArrayList) {
             model.addRow(new Object[]{
@@ -147,11 +149,6 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btnTimKiemMouseClicked(evt);
             }
         });
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
-            }
-        });
         btnTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 btnTimKiemKeyPressed(evt);
@@ -162,11 +159,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThemMouseClicked(evt);
-            }
-        });
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
             }
         });
         btnThem.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -430,9 +422,26 @@ public class FrmAdmin extends javax.swing.JFrame {
         }
         txtMaSach.setVisible(true);
         selectSach = null;
+        Default();
     }
 
-    // sự kiện click chuột
+    private void Default() {
+        txtMaSach.setText("");
+        txtMaSach.requestFocus();
+        txtGiaThanh.setText("");
+        txtNhaXuatBan.setText("");
+        txtSoLuong.setText("");
+        txtTenSach.setText("");
+        txtTenTacGia.setText("");
+        txtTimKiem.setText("");
+        cmbLoc.setSelectedIndex(0);
+        cmbTimKiem.setSelectedIndex(0);
+        cmbSapXep.setSelectedIndex(0);
+        cmbTheLoai.setSelectedIndex(0);
+        // chọn ngày hiện tại
+        dteNgayXuatBan.setDate(new Date(System.currentTimeMillis()));
+    }
+// sự kiện click chuột
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         themSach();
     }//GEN-LAST:event_btnThemMouseClicked
@@ -486,16 +495,9 @@ public class FrmAdmin extends javax.swing.JFrame {
             DanhSach_DAL.suaSach(sach);
             hienThi(DanhSach_DAL.getGetDS_SACH_DTOs());
         }
-        txtMaSach.setText("");
-        txtTenSach.setText("");
-        cmbTheLoai.setSelectedIndex(0);
-        txtTenTacGia.setText("");
-        txtNhaXuatBan.setText("");
-        dteNgayXuatBan.setDate(null);
-        txtSoLuong.setText("");
-        txtGiaThanh.setText("");
         txtMaSach.setVisible(true);
         selectSach = null;
+        Default();
     }
 
     // sự kiện click chuột
@@ -607,105 +609,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         txtGiaThanh.setText(selectSach.getGiaThanh() + "");
     }//GEN-LAST:event_tblSachMouseClicked
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        java.util.Date date = dteNgayXuatBan.getDate();
-        java.sql.Date date1 = new Date(date.getTime());
-
-        Sach_DTO sach;
-        sach = new Sach_DTO(
-                txtMaSach.getText(),
-                txtTenSach.getText(),
-                cmbTheLoai.getSelectedItem().toString(),
-                txtTenTacGia.getText(),
-                txtNhaXuatBan.getText(),
-                date1,
-                Integer.parseInt(txtSoLuong.getText()),
-                Integer.parseInt(txtSoLuong.getText())
-        );
-
-        if (DanhSach_DAL.themSach(sach)) {
-            JOptionPane.showMessageDialog(null, "Thêm sách thành công");
-            hienThi(DanhSach_DAL.getGetDS_SACH_DTOs());
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm sách thất bại");
-        }
-        txtMaSach.setVisible(true);
-        selectSach = null;
-
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        Sach_DTO sach = null;
-        switch (cmbTimKiem.getSelectedItem().toString()) {
-            case "Mã":
-                sach = DanhSach_DAL.getSach_MaSach(txtTimKiem.getText());
-                if (sach == null) {
-                    JOptionPane.showMessageDialog(null, "Không tồn tại sách");
-                } else {
-                    JOptionPane.showMessageDialog(null, sach.toString());
-                }
-                break;
-            case "Tác giả":
-                sach = DanhSach_DAL.getSach_TacGia(txtTimKiem.getText());
-                if (sach == null) {
-                    JOptionPane.showMessageDialog(null, "Không tồn tại sách");
-                } else {
-                    JOptionPane.showMessageDialog(null, sach.toString());       // tại sao chỗ này không toString được
-                }
-                break;
-            case "Tên sách":
-                sach = DanhSach_DAL.getSach_TenSach(txtTimKiem.getText());
-                if (sach == null) {
-                    JOptionPane.showMessageDialog(null, "Không tồn tại sách");
-                } else {
-                    JOptionPane.showMessageDialog(null, sach.toString());
-                }
-                break;
-            default:
-                throw new AssertionError();
-        }
-        txtTimKiem.setText("");
-        cmbTimKiem.setSelectedIndex(0);
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new FrmAdmin(nameAdmin).setVisible(true);
-                new FrmAdmin().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDSSachXoa;

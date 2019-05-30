@@ -125,4 +125,17 @@ public class Sach_DTO implements Comparable<Sach_DTO>{
         // sắp xếp giảm
         // return quantity - this.giaThanh;
     }
+
+    @Override
+    public String toString() {
+        return getMaSach() + " - "
+                + getTenSach()+ " - "
+                + getTacGia() + " - "
+                + getTheLoai()+ " - " 
+                + getGiaThanh() + " - "
+                + getNhaXuatBan() + " - "
+                + getNgayXuatBan();
+    }
+    
+    
 }

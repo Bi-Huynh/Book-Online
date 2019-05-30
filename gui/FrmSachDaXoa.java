@@ -142,7 +142,10 @@ public class FrmSachDaXoa extends javax.swing.JFrame {
         if (selectSach != null) {
             if (DanhSach_DAL.xoaSachDaXoa(selectSach)) {
                 JOptionPane.showMessageDialog(null, "Xóa thành công");
+                hienThi();
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Chọn giá trị muốn xóa");
         }
     }//GEN-LAST:event_btnXoaMouseClicked
 

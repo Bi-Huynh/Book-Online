@@ -5,7 +5,6 @@
  */
 package gui;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import dal.DanhSach_DAL;
 import dto.DatSach_DTO;
 import dto.Sach_DTO;
@@ -286,9 +285,7 @@ public class FrmUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Thông tin tài khoản không hợp lệ");
             txtUserName.setText("");
             txtPass.setText("");
-       }
-        //new FrmAdmin("huynhtrungduc@gmail.com").setVisible(true);
-        //this.hide();
+        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     /*
@@ -297,27 +294,33 @@ public class FrmUser extends javax.swing.JFrame {
         và đưa vào datsach rồi thêm cái datsach đó vào trong danh sách đặt sách
      */
     private void btnDatSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatSachActionPerformed
-       try{ DatSach_DTO datSach = new DatSach_DTO(
-                txtHoTen.getText(),
-                txtSDT.getText(),
-                txtEmail.getText(),
-                txtMaSach.getText(),
-                txtTenSach.getText(),
-                Integer.parseInt(txtSoLuong.getText())
-        );
 
-        DanhSach_DAL.themDatSach(datSach);
+        try {
+            String ten = txtHoTen.getText();
+            String sdt = txtSDT.getText();
+            String email = txtEmail.getText();
+            String maSach = txtMaSach.getText();
+            String tenSach = txtTenSach.getText();
+            int soLuong = Integer.parseInt(txtSoLuong.getText());
+            
+            DatSach_DTO datSach = new DatSach_DTO(ten, sdt, email, maSach, tenSach, soLuong);
 
-        txtHoTen.setText("");
-        txtSDT.setText("");
-        txtEmail.setText("");
-        txtMaSach.setText("");
-        txtTenSach.setText("");
-        txtSoLuong.setText("");
-       }catch(java.lang.NumberFormatException ex){
-           JOptionPane.showMessageDialog(null, "ban chua nhap thong tin");
-       }
-       
+            if (DanhSach_DAL.themDatSach(datSach)) {
+                JOptionPane.showMessageDialog(null, "Đặt sách thành công");
+                txtHoTen.setText("");
+                txtSDT.setText("");
+                txtEmail.setText("");
+                txtMaSach.setText("");
+                txtTenSach.setText("");
+                txtSoLuong.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Thông tin nhập vào không hợp lệ");
+            }
+        } catch (java.lang.NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Số lượng phải nhập số");
+        } catch (java.lang.NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Không được để trống");
+        }
     }//GEN-LAST:event_btnDatSachActionPerformed
 
     /*

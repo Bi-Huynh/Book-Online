@@ -7,6 +7,7 @@ package gui;
 
 import dal.DanhSach_DAL;
 import dto.DatSach_DTO;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,7 +18,7 @@ public class FrmDatSach extends javax.swing.JFrame {
 
     DefaultTableModel model = null;
     DatSach_DTO selectDatSach = null;
-    
+
     /**
      * Creates new form FrmDatSach
      */
@@ -25,14 +26,12 @@ public class FrmDatSach extends javax.swing.JFrame {
         initComponents();
         model = (DefaultTableModel) tblDatSach.getModel();
         hienThi();
-        
     }
 
-    
     private void hienThi() {
         model.setRowCount(0);
         for (DatSach_DTO dt : DanhSach_DAL.getDS_DATSACH_DTOs()) {
-            model.addRow(new Object[] {
+            model.addRow(new Object[]{
                 dt.getHoTen(),
                 dt.getSdt(),
                 dt.getEmail(),
@@ -42,7 +41,7 @@ public class FrmDatSach extends javax.swing.JFrame {
             });
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -131,11 +130,14 @@ public class FrmDatSach extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
-        if (selectDatSach == null) {
-            return;
+        if (selectDatSach != null) {
+            if (DanhSach_DAL.xoaDatSach(selectDatSach)) {
+                JOptionPane.showMessageDialog(null, "Xóa thành công");
+                hienThi();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Chọn giá trị muốn xóa");
         }
-        DanhSach_DAL.xoaDatSach(selectDatSach);
-        hienThi();
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnXoaAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaAllMouseClicked
