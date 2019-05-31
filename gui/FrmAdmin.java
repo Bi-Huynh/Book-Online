@@ -24,6 +24,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmAdmin
+     *
      * @param nameAdmin
      */
     public FrmAdmin(String nameAdmin) {
@@ -161,6 +162,11 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btnThemMouseClicked(evt);
             }
         });
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
         btnThem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 btnThemKeyPressed(evt);
@@ -173,6 +179,11 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btnXoaMouseClicked(evt);
             }
         });
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
         btnXoa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 btnXoaKeyPressed(evt);
@@ -183,6 +194,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSuaMouseClicked(evt);
+            }
+        });
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
             }
         });
         btnSua.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -411,7 +427,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 txtNhaXuatBan.getText(),
                 date1,
                 Integer.parseInt(txtSoLuong.getText()),
-                Integer.parseInt(txtSoLuong.getText())
+                Integer.parseInt(txtGiaThanh.getText())
         );
 
         if (DanhSach_DAL.themSach(sach)) {
@@ -608,6 +624,18 @@ public class FrmAdmin extends javax.swing.JFrame {
         txtSoLuong.setText(selectSach.getSoLuong() + "");
         txtGiaThanh.setText(selectSach.getGiaThanh() + "");
     }//GEN-LAST:event_tblSachMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        themSach();
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        xoaSach();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        suaSach();
+    }//GEN-LAST:event_btnSuaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
